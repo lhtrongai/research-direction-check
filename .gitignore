@@ -1,0 +1,8 @@
+# Personal defaults read by the skill; never publish
+research-profile.local.md
+*.local.md
+
+# Run outputs and scratch
+runs/
+.DS_Store
+Thumbs.db
