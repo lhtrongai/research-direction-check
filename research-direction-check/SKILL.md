@@ -3,8 +3,8 @@ name: research-direction-check
 description: Pre-commitment check of a robot learning research direction (VLA and robot foundation models, manipulation, humanoids, sim-to-real). Forces the questions reviewers ask under novelty and soundness before the work starts, covering one main question, prior art, confounded comparisons, claims versus evidence and budget, baseline reproduction, scope and title. Reports blocking, major and minor findings, the evidence that would clear each blocker, and a one-page summary to send to an expert. Use whenever the user has a research plan, proposal, topic idea or first results and asks if the direction is sound, new, already done, too scattered, feasible, or worth committing to, registering or writing up, even without the word "check". Vietnamese requests include "kiểm hướng nghiên cứu", "đề tài này ổn không", "có ai làm chưa", "phản biện plan", "trước khi đăng ký đề tài", "có nên theo hướng này". Not for drafting or reviewing a paper (use robot-learning-paper if installed) and not for rating how exciting an idea is.
 compatibility: Needs a web search tool, and a page fetch tool if available. Without search the prior-art step cannot run and the report is marked incomplete.
 metadata:
-  version: "0.5.0"
-  updated: "2026-10-01"
+  version: "0.6.0"
+  updated: "2026-10-02"
 ---
 
 # Research direction check
@@ -36,7 +36,7 @@ These hold in every step. They are written as rules, not left to judgment, so th
 
 Run in order. If a gate fails, do what it says and stop: no partial check, no quick look.
 
-**G1. Independence.** A model that helped write a plan defends it, and drafting context leaks the hoped-for answers. Rate the session before Step 0 and print the rating at the top of the report. Never refuse to run, and never lower a severity because of context.
+**G1. Independence.** A model that helped write a plan defends it, and drafting context leaks the hoped-for answers. Rate the session before Step 0 and state the rating under "How this check ran"; a Co-author rating also goes in the At a glance stage line. Never refuse to run, and never lower a severity because of context.
 - Independent: nothing about this plan in the conversation, memory or past-chat context.
 - Context: memory, past chats or the user's background mention the plan, but this conversation did not draft it. Run the full check. Tag facts taken from memory `[MEMORY]`; they never fill a confound cell or support a prior-art claim, and they are listed so the user can confirm them.
 - Co-author: earlier in this conversation you proposed, wrote or edited part of this plan, or its drafting discussion is pasted in. Say so and recommend a new session with only this skill and the plan; continue only if the user asks, and label the report "co-author session".
@@ -57,7 +57,7 @@ If any is missing, ask for exactly the missing items in one message and stop. Do
 
 ## Steps
 
-Read `references/robot-learning.md` before Step 0; Steps 1 to 5 use its checklists and lookup table. Work through every step and fill every table even when an early step finds a blocker, because the user needs the whole picture to choose between fixing and pivoting. At M2 and M3, rerun Step 1 (papers appear monthly) and use the observed numbers in Steps 3 and 4; at M3 every evidence cell must read "have", not "planned".
+Read `references/robot-learning.md` before Step 0; Steps 1 to 5 use its checklists and lookup table. Work through every step and fill every table even when an early step finds a blocker, because the user needs the whole picture to choose between fixing and pivoting. The tables are always built; they are printed only in the full report. At M2 and M3, rerun Step 1 (papers appear monthly) and use the observed numbers in Steps 3 and 4; at M3 every evidence cell must read "have", not "planned".
 
 ### Step 0. Focus: one main question
 
@@ -73,7 +73,7 @@ Web search is required whenever a search tool exists. A user saying there is no 
 
 1. Name three axes: the **benchmark** (with its variants, extensions and successors), the **models** (with their families and successors), and the **measurement** (what is measured, plus three to five synonyms used in the field).
 2. Search every pair of axes and all three together, with synonym variants: at least six and at most about twelve distinct queries, including the places listed in the reference file. Cover the last 18 months from today's date, plus older canonical work.
-3. Citation pass: find the paper that introduced the benchmark and the one that introduced each model, go through the works citing them in the last 18 months, and keep those that touch the measurement. This finds benchmark extensions that keyword search misses. Use whichever citation index responds (Semantic Scholar, OpenAlex, Google Scholar "cited by"); if one refuses or rate-limits, switch to the next instead of retrying it more than twice, and if none responds, search arXiv for the benchmark name plus the measurement and list the gap under Incomplete.
+3. Citation pass: find the paper that introduced the benchmark and the one that introduced each model, go through the works citing them in the last 18 months, and keep those that touch the measurement. This finds benchmark extensions that keyword search misses. Use whichever citation index responds (Semantic Scholar, OpenAlex, Google Scholar "cited by"); if one refuses or rate-limits, switch to the next instead of retrying it more than twice, and if none responds, search arXiv for the benchmark name plus the measurement and record the gap under "How this check ran".
 4. Open each candidate and read the abstract and the results; do not judge from search snippets. Open at most about eight in full. Keep the three to five closest.
 5. Fill one row per kept paper. The last column comes from the plan: one sentence naming a different factor, population, measurement or claim, and why that difference could change the answer. "More comprehensive", "more systematic", "deeper analysis" and "new perspective" do not count. If the plan states no difference, write "not stated in plan".
 
@@ -134,7 +134,7 @@ Raise MAJOR for each promise with no row, or with a row that failed Step 2, 3 or
 
 ### Step 7. One page for a person
 
-Write a summary the user can send to a researcher in the field: one page at most, plain language, blockers stated as plainly as strengths. Use this order, adapted from the Heilmeier questions:
+Write it in the full report or when the user asks for it: a summary the user can send to a researcher in the field, one page at most, plain language, blockers stated as plainly as strengths. Use this order, adapted from the Heilmeier questions:
 
 1. What I want to find out, in one sentence with no acronyms.
 2. How this is measured today: the closest papers, one line each, and what they leave open.
@@ -157,37 +157,40 @@ Levels:
 - **MAJOR**: a reviewer would likely lower the score for it; fixable without changing direction; fix before submission.
 - **MINOR**: wording or presentation; fix while writing.
 
-Write the whole report in the chat reply. Create a document or file only if the user asks, and only after the chat report is complete. Never end a turn with a partial report: if tool calls or time run low, stop gathering, write the full report from what you have, and list what was not done under Incomplete.
+Write in the chat reply; create a document or file only if asked, after the chat report is complete. Never end a turn on a partial report: if tool calls or time run low, stop gathering, write what you have and say what was not done.
 
-Use this structure:
+**Two layers.** Print the short report by default. Print the full report only when the user asks ("full report", "xem đầy đủ") or an evaluation prompt requests it. The work behind it is done in every run.
+
+**Plain words** in everything the reader sees before "How this check ran": no checklist codes (write the reviewer's question, such as "can the experiments support this claim?", not "ICLR Q3"; no step, gate or milestone codes); every blocker names the concrete paper, number or model and the concrete action, with its size; state each point once.
+
+Short report:
 
 ```text
-# Research direction check: [plan name], [date], milestone [M1 | M2 | M3]
-Verdict: DO NOT COMMIT YET ([n] blockers) | COMMIT WITH FIXES ([n] major) | NO BLOCKER FOUND BY THIS CHECKLIST
-(Pick it mechanically: any BLOCK gives DO NOT COMMIT YET; otherwise any MAJOR gives COMMIT WITH FIXES. If Step 1 did not run, the verdict is INCOMPLETE: prior art not searched, whatever else was found.)
-Incomplete: [steps that could not run, and why] or "none"
+# Research direction check: [plan names], [date], [stage in plain words]
 
-## Findings
-| ID | Level | Step | Finding | Criterion (venue form) | Basis | Evidence that clears it |
+## At a glance
+| Plan | Verdict | Main blocker in one plain sentence |
+(Verdict is mechanical: any BLOCK gives DO NOT COMMIT YET; otherwise any MAJOR gives COMMIT WITH FIXES; otherwise NO BLOCKER FOUND BY THIS CHECKLIST. If prior art was not searched: INCOMPLETE.)
 
 ## First move
-The cheapest action that could clear or confirm the worst blocker, what it costs, and the result that means stop or pivot.
+One action, its cost, and the result that means stop or pivot.
 
-## If I were Reviewer 2
-One paragraph built only from the findings above, in the order a reviewer would write them. No new issues.
+## [Plan name]  (one section per plan)
+Blockers: two or three sentences each: what is wrong, why a reviewer cares, what exactly to do.
+Major and minor: one line each.
 
-## Working tables
-Step 0 map; Step 1 papers, queries, dropped candidates; Step 2 confounds; Step 3 claims and budget; Step 4 reference table; Step 5 scope and limitations sentence.
+## Evidence
+| ID | Plan | Level | Finding (short) | Reviewer criterion | Source (link, table or line; basis tag) | What clears it |
 
-## Sources
-Every page opened: title, link, date accessed.
-
-## One page for a person
+## How this check ran
+Session independence and any [MEMORY] facts (G1), material read (G2), inputs recorded as gaps (G3), milestone, steps not fully run and why, criteria used (venue form, link, date), and the count of findings per level and how many rest on [INFER].
 ```
 
-Order findings by level, then by step. Close with the count of findings per level and how many rest on `[INFER]`. "No blocker found" means this checklist found none; it is not evidence that the idea is good or new, and sending the one page to a person is still the next move.
+The full report adds, after Evidence: "If I were Reviewer 2" (one paragraph built only from the findings, no new issues); the working tables (Step 0 map; Step 1 papers, queries, dropped candidates; Step 2 confounds; Step 3 claims and budget; Step 4 reference table; Step 5 limitations sentences; Step 6 narrowest titles); every source opened with its access date; and the Step 7 page.
 
-With no web search tool, run the other steps, list Step 1 and the criteria fetch under "Incomplete", and replace the verdict with "INCOMPLETE: prior art not searched". Papers recalled from memory may be listed as leads to look up, labelled `[INFER]`.
+Order findings by level, then by step. "No blocker found" means this checklist found none; it is not evidence that the idea is good or new, and sending the one page to a person is still the next move.
+
+With no web search tool, run the other steps, record Step 1 and the criteria fetch as not run under "How this check ran", and replace the verdict with "INCOMPLETE: prior art not searched". Papers recalled from memory may be listed as leads to look up, labelled `[INFER]`.
 
 ## Credits
 

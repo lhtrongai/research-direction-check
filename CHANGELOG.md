@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.6.0 (2026-10-02)
+Found in real use: a check of four plans produced a long, abstract report that opened with internal labels and repeated the same blockers in five sections.
+- Two layers: a short report by default (verdict per plan, blockers in plain words, first move, evidence table); the full report (working tables, queries, reviewer paragraph, one-page summary) only on request.
+- Plain words before "How this check ran": no checklist, step, gate or milestone codes; every blocker names the concrete paper, number or model and the concrete action.
+- One section per plan when several plans are checked; each point stated once.
+- Gate results, milestone, criteria and incomplete steps move to a closing section, "How this check ran". Scoring rules are unchanged.
+
 ## 0.5.0 (2026-10-02)
 - G1 no longer stops the check. It rates the session (Independent, Context, Co-author) and prints the rating. Found in real use: a normal chat with memory refused to check the user's own projects.
 - Facts taken from memory are tagged `[MEMORY]`, listed for confirmation, and never fill a confound cell or support a prior-art claim.
