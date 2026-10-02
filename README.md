@@ -4,7 +4,7 @@
 
 Built as an [Agent Skill](https://docs.claude.com/en/docs/agents-and-tools/agent-skills/overview) (`SKILL.md` plus one reference file). It runs in Claude (claude.ai, Claude Code) and was also tested with OpenAI Codex, which reads the same files as plain instructions.
 
-> Status: **v0.4.0, early release** (versions 0.1 to 0.3 were internal iterations; see the changelog). Version 1.0 will follow the held-out evaluation. The skill is usable now. The evaluation so far is a pilot on one in-sample case (see [Evaluation](#evaluation)); held-out results will be added as they come in.
+> Status: **v0.5.0, early release** (versions 0.1 to 0.3 were internal iterations; see the changelog). Version 1.0 will follow the held-out evaluation. The skill is usable now. The evaluation so far is a pilot on one in-sample case (see [Evaluation](#evaluation)); held-out results will be added as they come in.
 
 ## Why this exists
 
@@ -38,13 +38,13 @@ Every finding is BLOCK, MAJOR or MINOR, cites its basis (`[USER]` plan, `[WEB]` 
 
 ## Install
 
-- **claude.ai:** download `dist/research-direction-check-v0.4.0.skill` and upload it as a skill.
+- **claude.ai:** download the `.skill` file from the latest release and upload it as a skill.
 - **Claude Code:** copy the `research-direction-check/` folder into `~/.claude/skills/` (or `.claude/skills/` in a project).
 - **Other agents (e.g. Codex):** give the agent the folder and ask it to follow `SKILL.md`.
 
 ## Use it well
 
-- **Fresh session, plan only.** A model that helped write the plan will defend it. Turn off memory and connectors, and give the session only the skill and the plan.
+- **Independence is labelled, not required.** The skill runs in any session and rates it Independent, Context (memory about you or the plan) or Co-author (this chat helped write the plan). Facts from memory are tagged and never count as evidence. For a final go or no-go decision, run it once in a fresh session with only the skill and the plan.
 - **A model with web search.** Step 1 is the most valuable step and needs search. In our tests, Claude Haiku 4.5 in Claude Code had no search tool, so prior art could not be checked there.
 - **Treat findings as things to verify.** Open the cited papers before acting on them.
 - **Optional local profile.** Put your budget, target venue and deadline in `research-profile.local.md` (git-ignored) so the skill does not ask every time.

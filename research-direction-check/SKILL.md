@@ -3,7 +3,7 @@ name: research-direction-check
 description: Pre-commitment check of a robot learning research direction (VLA and robot foundation models, manipulation, humanoids, sim-to-real). Forces the questions reviewers ask under novelty and soundness before the work starts, covering one main question, prior art, confounded comparisons, claims versus evidence and budget, baseline reproduction, scope and title. Reports blocking, major and minor findings, the evidence that would clear each blocker, and a one-page summary to send to an expert. Use whenever the user has a research plan, proposal, topic idea or first results and asks if the direction is sound, new, already done, too scattered, feasible, or worth committing to, registering or writing up, even without the word "check". Vietnamese requests include "kiểm hướng nghiên cứu", "đề tài này ổn không", "có ai làm chưa", "phản biện plan", "trước khi đăng ký đề tài", "có nên theo hướng này". Not for drafting or reviewing a paper (use robot-learning-paper if installed) and not for rating how exciting an idea is.
 compatibility: Needs a web search tool, and a page fetch tool if available. Without search the prior-art step cannot run and the report is marked incomplete.
 metadata:
-  version: "0.4.0"
+  version: "0.5.0"
   updated: "2026-10-01"
 ---
 
@@ -36,7 +36,11 @@ These hold in every step. They are written as rules, not left to judgment, so th
 
 Run in order. If a gate fails, do what it says and stop: no partial check, no quick look.
 
-**G1. Clean session.** A model that helped write a plan defends it, and drafting context leaks the hoped-for answers. Stop if any of these holds: earlier in this conversation you proposed, wrote or edited any part of this plan; the conversation contains the discussion, or a pasted chat log, in which the plan was developed; memory or past-chat context about this plan is present. Tell the user to open a new session (memory off if possible) and give it only this skill, the plan and its supporting documents. Later turns of this same check (answers to your questions, new evidence) are not drafting history.
+**G1. Independence.** A model that helped write a plan defends it, and drafting context leaks the hoped-for answers. Rate the session before Step 0 and print the rating at the top of the report. Never refuse to run, and never lower a severity because of context.
+- Independent: nothing about this plan in the conversation, memory or past-chat context.
+- Context: memory, past chats or the user's background mention the plan, but this conversation did not draft it. Run the full check. Tag facts taken from memory `[MEMORY]`; they never fill a confound cell or support a prior-art claim, and they are listed so the user can confirm them.
+- Co-author: earlier in this conversation you proposed, wrote or edited part of this plan, or its drafting discussion is pasted in. Say so and recommend a new session with only this skill and the plan; continue only if the user asks, and label the report "co-author session".
+For a final go or no-go decision, recommend an Independent run. Later turns of this same check (answers to your questions, new evidence) are not drafting history.
 
 **G2. Material.** Check only what the user hands over for this check: the plan and its supporting documents (results, configs, draft). Do not look through the workspace for other files. Earlier reviews of this plan by a person or a model, response notes and old drafts are not evidence: do not open them, and if they are pasted in, do not let them raise or lower a finding. A paper they name is a lead for Step 1 like any other. Inside the plan, commented-out text and TODO items count as absent; something planned but not written is missing. One exception: if the user supplies a local profile file (suggested name `research-profile.local.md`, kept out of any public repository), read it for defaults such as budget, target venue, deadline and who receives the one-page summary, and treat it as `[USER]`. Personal details belong in that file, never in this skill.
 

@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.5.0 (2026-10-02)
+- G1 no longer stops the check. It rates the session (Independent, Context, Co-author) and prints the rating. Found in real use: a normal chat with memory refused to check the user's own projects.
+- Facts taken from memory are tagged `[MEMORY]`, listed for confirmation, and never fill a confound cell or support a prior-art claim.
+- A co-author session still recommends a fresh session and continues only if the user asks.
+
 ## 0.4.0 (2026-10-01)
 - A plan's own statement that two arms are controlled or matched is treated as a claim to check, never as a source for the confound table.
 
