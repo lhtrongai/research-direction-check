@@ -4,7 +4,7 @@
 
 Built as an [Agent Skill](https://docs.claude.com/en/docs/agents-and-tools/agent-skills/overview) (`SKILL.md` plus one reference file). It runs in Claude (claude.ai, Claude Code) and was also tested with OpenAI Codex, which reads the same files as plain instructions.
 
-> Status: **v0.6.0, early release** (versions 0.1 to 0.3 were internal iterations; see the changelog). Version 1.0 will follow the held-out evaluation. The skill is usable now. The evaluation so far is a pilot on one in-sample case (see [Evaluation](#evaluation)); held-out results will be added as they come in.
+> Status: **v0.7.0, early release** (versions 0.1 to 0.3 were internal iterations; see the changelog). Version 1.0 will follow the held-out evaluation. The skill is usable now. The evaluation so far is a pilot on one in-sample case (see [Evaluation](#evaluation)); held-out results will be added as they come in.
 
 ## Why this exists
 
@@ -31,6 +31,8 @@ These are the two most common reasons papers are rejected, at any scale of resea
 Every finding is BLOCK, MAJOR or MINOR, cites its basis (`[USER]` plan, `[WEB]` source, or `[INFER]`), and every blocker states the evidence that would clear it. The verdict is mechanical: any BLOCK gives **DO NOT COMMIT YET**; if prior art could not be searched, the verdict is **INCOMPLETE**.
 
 The default report is short and in plain words: a verdict per plan, each blocker with the concrete action that clears it, the cheapest first move, and an evidence table with sources. Ask for the **full report** to see the working tables, search queries, a reviewer-style paragraph and the one-page summary.
+
+**Coverage.** Robot manipulation is the main domain. RL training and comparison; locomotion, navigation and driving; vision-language models; and language models and agents are covered experimentally: each check cites a source, but no held-out evaluation exists for them yet. The skill opens only the reference files that match the plan.
 
 ## What it is not
 

@@ -2,7 +2,7 @@
 
 Domain detail for Steps 1 to 5 of `SKILL.md`. This file holds checklists and arithmetic, not facts. Nothing here names a current model, a benchmark result or a venue rule, because those go stale; look them up in the run.
 
-Version 0.1.0, 2026-09-30.
+Version 0.1.0, 2026-09-30. Last reviewed: 2026-10-04 (review yearly).
 
 ## 1. Prior art: where it hides (Step 1)
 

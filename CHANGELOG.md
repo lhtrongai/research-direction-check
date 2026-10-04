@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.7.0 (2026-10-04)
+- Experimental coverage, no held-out evaluation yet: separate reference files for RL training and comparison (`rl.md`), locomotion, navigation and driving (`locomotion-navigation-driving.md`), vision-language models (`vlm-multimodal.md`), and language models and agents (`llm-agents.md`). The skill opens only the files that match the plan, so a manipulation run never reads them. Every check cites a source checked on 2026-10-04; two rows rest on a general principle or a survey inference and say so.
+- Reference file now carries a "last reviewed" date, to be reviewed yearly.
+
 ## 0.6.0 (2026-10-02)
 Found in real use: a check of four plans produced a long, abstract report that opened with internal labels and repeated the same blockers in five sections.
 - Two layers: a short report by default (verdict per plan, blockers in plain words, first move, evidence table); the full report (working tables, queries, reviewer paragraph, one-page summary) only on request.

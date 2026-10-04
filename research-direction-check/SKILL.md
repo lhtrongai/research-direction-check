@@ -1,10 +1,10 @@
 ---
 name: research-direction-check
-description: Pre-commitment check of a robot learning research direction (VLA and robot foundation models, manipulation, humanoids, sim-to-real). Forces the questions reviewers ask under novelty and soundness before the work starts, covering one main question, prior art, confounded comparisons, claims versus evidence and budget, baseline reproduction, scope and title. Reports blocking, major and minor findings, the evidence that would clear each blocker, and a one-page summary to send to an expert. Use whenever the user has a research plan, proposal, topic idea or first results and asks if the direction is sound, new, already done, too scattered, feasible, or worth committing to, registering or writing up, even without the word "check". Vietnamese requests include "kiểm hướng nghiên cứu", "đề tài này ổn không", "có ai làm chưa", "phản biện plan", "trước khi đăng ký đề tài", "có nên theo hướng này". Not for drafting or reviewing a paper (use robot-learning-paper if installed) and not for rating how exciting an idea is.
+description: Pre-commitment check of a research direction in robot learning (VLA, manipulation, humanoids, sim-to-real), with experimental coverage of RL, locomotion, navigation, driving, VLMs, LLMs and agents. Asks what reviewers ask about novelty and soundness before the work starts, covering main question, prior art, confounds, claims versus evidence and budget, reproduction, scope, title. Reports blockers with the evidence that would clear each, in plain words, plus a one-page summary for an expert on request. Use whenever the user has a research plan, proposal, topic idea or first results and asks if the direction is sound, new, already done, too scattered, feasible, or worth committing to, registering or writing up, even without the word "check". Vietnamese requests include "kiểm hướng nghiên cứu", "đề tài này ổn không", "có ai làm chưa", "phản biện plan", "trước khi đăng ký đề tài", "có nên theo hướng này". Not for drafting or reviewing a paper, nor for rating how exciting an idea is.
 compatibility: Needs a web search tool, and a page fetch tool if available. Without search the prior-art step cannot run and the report is marked incomplete.
 metadata:
-  version: "0.6.0"
-  updated: "2026-10-02"
+  version: "0.7.0"
+  updated: "2026-10-04"
 ---
 
 # Research direction check
@@ -19,7 +19,7 @@ What it is not:
 - Not a writing aid. It does not draft the plan or the paper.
 - Not a judge of taste. Every finding ties to a sourced criterion (a venue's reviewer form, a statistical standard). Whether the idea is exciting is left to people, so do not comment on it.
 
-The steps assume robot learning. For empirical machine learning outside it, run the same steps and say that the domain checklists in the reference file did not apply.
+The steps assume robot learning. For empirical machine learning outside it, run the same steps with whichever reference files match, and say when none did.
 
 ## Ground rules
 
@@ -57,7 +57,7 @@ If any is missing, ask for exactly the missing items in one message and stop. Do
 
 ## Steps
 
-Read `references/robot-learning.md` before Step 0; Steps 1 to 5 use its checklists and lookup table. Work through every step and fill every table even when an early step finds a blocker, because the user needs the whole picture to choose between fixing and pivoting. The tables are always built; they are printed only in the full report. At M2 and M3, rerun Step 1 (papers appear monthly) and use the observed numbers in Steps 3 and 4; at M3 every evidence cell must read "have", not "planned".
+Before Step 0, read only the reference files that match the plan: `references/robot-learning.md` for manipulation and VLA plans (it leads for any VLA plan), `references/rl.md` when the plan trains RL agents, `references/locomotion-navigation-driving.md` for locomotion, navigation or driving, `references/vlm-multimodal.md` for vision-language models, `references/llm-agents.md` for language models and agents; Steps 1 to 5 use its checklists and lookup table. Work through every step and fill every table even when an early step finds a blocker, because the user needs the whole picture to choose between fixing and pivoting. The tables are always built; they are printed only in the full report. At M2 and M3, rerun Step 1 (papers appear monthly) and use the observed numbers in Steps 3 and 4; at M3 every evidence cell must read "have", not "planned".
 
 ### Step 0. Focus: one main question
 

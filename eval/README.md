@@ -13,6 +13,11 @@ Each case is run under three conditions, with the same model and effort within a
 - On Windows PowerShell 5.1, avoid double quotes inside prompts passed as arguments.
 - Output files from one run must never be committed where another run can read them.
 
+## Cases built from public papers (learned in smoke tests, October 2026)
+- A plan written from a public paper is almost always found by Step 1, even when the paper has no arXiv version: rejected submissions are often published later at another venue, and search engines index OpenReview titles and abstracts. Finding it is correct behaviour, but it lets the skill read the paper's own results.
+- For such cases, the run prompt states that any paper matching the plan almost exactly is the author's own draft: do not use its content, and continue as if it did not exist. Runs that still use it are graded separately.
+- Report cases in tiers: in-sample (cases that shaped the skill), pre-cutoff (reviews published before the model's knowledge cutoff), post-cutoff (reviews published after it). Never pool tiers in one number.
+
 ## Rubric
 Written **before** any run, from the case's known errors. For held-out cases the errors come from independent reviewers. Each item is scored caught / partial / missed. Partial means the point is made only vaguely, or a blocking error is rated as a minor concern. Item f records whether the run recommended a direction already published.
 
