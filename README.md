@@ -4,7 +4,7 @@
 
 Built as an [Agent Skill](https://docs.claude.com/en/docs/agents-and-tools/agent-skills/overview) (`SKILL.md` plus one reference file). It runs in Claude (claude.ai, Claude Code) and was also tested with OpenAI Codex, which reads the same files as plain instructions.
 
-> Status: **v0.7.0, early release** (versions 0.1 to 0.3 were internal iterations; see the changelog). Version 1.0 will follow the held-out evaluation. The skill is usable now. The evaluation so far is a pilot on one in-sample case (see [Evaluation](#evaluation)); held-out results will be added as they come in.
+> Status: **v0.8.0, early release** (versions 0.1 to 0.3 were internal iterations; see the changelog). Version 1.0 will follow the held-out evaluation. The skill is usable now. The evaluation so far is a pilot on one in-sample case (see [Evaluation](#evaluation)); held-out results will be added as they come in.
 
 ## Why this exists
 
@@ -20,7 +20,7 @@ These are the two most common reasons papers are rejected, at any scale of resea
 | Step | Question | Typical blocker |
 |---|---|---|
 | 0 | Is there one main question? | Several questions with different factors and outcomes, none marked as main |
-| 1 | Has this been measured already? | A paper reports the same measurement on the same benchmark with the same or newer models |
+| 1 | Has this been measured already, including in submissions still under review? | A paper reports the same measurement on the same benchmark with the same or newer models, for the whole plan or for one of its parts |
 | 2 | Do the arms differ only in the factor under study? | Policies differ in sensors, backbone, pretraining or action execution, so only descriptive wording is allowed |
 | 3 | Can the planned sample detect the difference the claim needs, within budget? | The main claim needs a smaller difference than its sample can detect |
 | 4 | Has the pipeline reproduced a published number? | No reference table against the closest paper |
@@ -28,9 +28,9 @@ These are the two most common reasons papers are rejected, at any scale of resea
 | 6 | Does the title promise what the design can deliver? | "Cross-architecture study" without a controlled architecture comparison |
 | 7 | One page for a human expert | (always produced) |
 
-Every finding is BLOCK, MAJOR or MINOR, cites its basis (`[USER]` plan, `[WEB]` source, or `[INFER]`), and every blocker states the evidence that would clear it. The verdict is mechanical: any BLOCK gives **DO NOT COMMIT YET**; if prior art could not be searched, the verdict is **INCOMPLETE**.
+Every finding is BLOCK, MAJOR or MINOR, cites its basis (`[USER]` plan, `[WEB]` source, or `[INFER]`), and every blocker states the evidence that would clear it. The verdict is mechanical: any BLOCK gives **DO NOT COMMIT YET**; if prior art could not be searched, the verdict is **INCOMPLETE**, and a submission pool under review that could not be searched is named next to the verdict.
 
-The default report is short and in plain words: a verdict per plan, each blocker with the concrete action that clears it, the cheapest first move, and an evidence table with sources. Ask for the **full report** to see the working tables, search queries, a reviewer-style paragraph and the one-page summary.
+The default report is short and in plain words: a verdict per plan, each blocker with the concrete action that clears it, what is still new part by part, the cheapest first move, an evidence table with sources, and the search queries it ran. Ask for the **full report** to see the working tables, a reviewer-style paragraph and the one-page summary.
 
 **Coverage.** Robot manipulation is the main domain. RL training and comparison; locomotion, navigation and driving; vision-language models; and language models and agents are covered experimentally: each check cites a source, but no held-out evaluation exists for them yet. The skill opens only the reference files that match the plan.
 

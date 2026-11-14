@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.8.0 (2026-11-14)
+Found in real use: several checks of one plan, run over two weeks, missed a paper that answered its main question. The paper was an ICLR submission under review, public on OpenReview but absent from search engines, arXiv and citation indexes. It also answered only two of the four conditions the plan varied, and the per-plan blocking rule let that through.
+- Step 1 searches submission pools: for venues that publish submissions while under review (for example ICLR on OpenReview), it lists the submissions that name the benchmark (or, with no standard benchmark, the task or robot), keeps those that also name one of the plan's model families when the list is long, and reads every title and abstract left. A pool still under review that could not be searched is flagged next to the verdict.
+- Novelty is judged per part of the plan (factor, condition, level, task or embodiment): a part already answered by an opened paper is a blocker even when other parts are new. The short report gains a "What is still new" line.
+- The short report lists the queries used under "How this check ran", so a later check can rerun them exactly.
+
 ## 0.7.0 (2026-10-04)
 - Experimental coverage, no held-out evaluation yet: separate reference files for RL training and comparison (`rl.md`), locomotion, navigation and driving (`locomotion-navigation-driving.md`), vision-language models (`vlm-multimodal.md`), and language models and agents (`llm-agents.md`). The skill opens only the files that match the plan, so a manipulation run never reads them. Every check cites a source checked on 2026-10-04; two rows rest on a general principle or a survey inference and say so.
 - Reference file now carries a "last reviewed" date, to be reviewed yearly.

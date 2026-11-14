@@ -3,8 +3,8 @@ name: research-direction-check
 description: Pre-commitment check of a research direction in robot learning (VLA, manipulation, humanoids, sim-to-real), with experimental coverage of RL, locomotion, navigation, driving, VLMs, LLMs and agents. Asks what reviewers ask about novelty and soundness before the work starts, covering main question, prior art, confounds, claims versus evidence and budget, reproduction, scope, title. Reports blockers with the evidence that would clear each, in plain words, plus a one-page summary for an expert on request. Use whenever the user has a research plan, proposal, topic idea or first results and asks if the direction is sound, new, already done, too scattered, feasible, or worth committing to, registering or writing up, even without the word "check". Vietnamese requests include "kiểm hướng nghiên cứu", "đề tài này ổn không", "có ai làm chưa", "phản biện plan", "trước khi đăng ký đề tài", "có nên theo hướng này". Not for drafting or reviewing a paper, nor for rating how exciting an idea is.
 compatibility: Needs a web search tool, and a page fetch tool if available. Without search the prior-art step cannot run and the report is marked incomplete.
 metadata:
-  version: "0.7.0"
-  updated: "2026-10-04"
+  version: "0.8.0"
+  updated: "2026-11-14"
 ---
 
 # Research direction check
@@ -74,15 +74,21 @@ Web search is required whenever a search tool exists. A user saying there is no 
 1. Name three axes: the **benchmark** (with its variants, extensions and successors), the **models** (with their families and successors), and the **measurement** (what is measured, plus three to five synonyms used in the field).
 2. Search every pair of axes and all three together, with synonym variants: at least six and at most about twelve distinct queries, including the places listed in the reference file. Cover the last 18 months from today's date, plus older canonical work.
 3. Citation pass: find the paper that introduced the benchmark and the one that introduced each model, go through the works citing them in the last 18 months, and keep those that touch the measurement. This finds benchmark extensions that keyword search misses. Use whichever citation index responds (Semantic Scholar, OpenAlex, Google Scholar "cited by"); if one refuses or rate-limits, switch to the next instead of retrying it more than twice, and if none responds, search arXiv for the benchmark name plus the measurement and record the gap under "How this check ran".
-4. Open each candidate and read the abstract and the results; do not judge from search snippets. Open at most about eight in full. Keep the three to five closest.
-5. Fill one row per kept paper. The last column comes from the plan: one sentence naming a different factor, population, measurement or claim, and why that difference could change the answer. "More comprehensive", "more systematic", "deeper analysis" and "new perspective" do not count. If the plan states no difference, write "not stated in plan".
+4. Submission pools. Some venues make submissions public while they are under review (ICLR on OpenReview, for example; confirm each venue's policy in the run). Such papers are often missing from search engines, arXiv and citation indexes for months, so items 2 and 3 cannot stand in for this one. For every such venue with a submission deadline in the last 18 months, search the pool itself: list the submissions whose title, abstract or keywords name the benchmark or one of its variants (a plan with no standard benchmark, such as one on a real robot, uses its task or robot instead); if more than about 150 remain, keep those that also name one of the model families from item 1; read every title and abstract left and treat the matches as candidates for item 5. OpenReview often refuses automated access: then use a public copy of the submission list (titles, abstracts and keywords only), or ask the user to run the search in their own browser. Name each pool and how it was searched under "How this check ran".
+5. Open each candidate and read the abstract and the results; do not judge from search snippets. Open at most about eight in full. Keep the three to five closest.
+6. Fill one row per kept paper. The last column comes from the plan: one sentence naming a different factor, population, measurement or claim, and why that difference could change the answer. "More comprehensive", "more systematic", "deeper analysis" and "new perspective" do not count. If the plan states no difference, write "not stated in plan".
 
 | Paper (venue or arXiv id, date, link) | Same benchmark? | Their models vs the plan's | Same measurement? | Their headline result and where it is reported | How the plan differs |
 |---|---|---|---|---|---|
 
-6. Print the queries used, and the candidates opened and dropped with a one-line reason each, so the user can check the search.
+7. When the plan varies several parts one at a time (factors, conditions, levels, tasks or embodiments), also fill one row per part. Status is "answered" when a kept paper reports the same measurement for that part, on the same benchmark or a variant, with the same, newer or stronger models; "partly" when it covers only some of it (some of the plan's models, levels or suites); "open" otherwise. Add "(abstract only)" when the closest paper could be read only by its abstract.
 
-Raise BLOCK when a paper you opened reports the same measurement on the same benchmark or a variant of it, with the same, newer or stronger models, and the plan states no difference the paper does not already cover; cite the table or section. Clearing evidence: such a difference stated in the plan, plus a planned comparison against that paper (Step 4). Raise MAJOR when a paper overlaps on the measurement but differs in benchmark or model class (it must be cited and compared), when every model in the plan is older than the models the closest papers evaluate, or when you could read only an abstract. If nothing close turns up, write "no close prior work found with these queries"; never write "novel".
+| Part of the plan | Closest kept paper and where it reports it | Status |
+|---|---|---|
+
+8. Print the queries used, and the candidates opened and dropped with a one-line reason each, so the user can check the search.
+
+Raise BLOCK when a paper you opened reports the same measurement on the same benchmark or a variant of it, with the same, newer or stronger models, and the plan states no difference the paper does not already cover; cite the table or section. Clearing evidence: such a difference stated in the plan, plus a planned comparison against that paper (Step 4). With per-part rows, apply this rule to each part: a part answered by a paper you opened is a BLOCK even when other parts of the plan are open, because a difference in another part does not clear it; clearing evidence is a difference stated for that part plus a planned comparison, or the part dropped from the claims. Raise MAJOR when a paper overlaps on the measurement but differs in benchmark or model class (it must be cited and compared), when every model in the plan is older than the models the closest papers evaluate, or when you could read only an abstract. If nothing close turns up, write "no close prior work found with these queries"; never write "novel".
 
 ### Step 2. Confounds
 
@@ -170,20 +176,21 @@ Short report:
 
 ## At a glance
 | Plan | Verdict | Main blocker in one plain sentence |
-(Verdict is mechanical: any BLOCK gives DO NOT COMMIT YET; otherwise any MAJOR gives COMMIT WITH FIXES; otherwise NO BLOCKER FOUND BY THIS CHECKLIST. If prior art was not searched: INCOMPLETE.)
+(Verdict is mechanical: any BLOCK gives DO NOT COMMIT YET; otherwise any MAJOR gives COMMIT WITH FIXES; otherwise NO BLOCKER FOUND BY THIS CHECKLIST. If prior art was not searched: INCOMPLETE. If a submission pool still under review could not be searched, add "prior art incomplete: [venue] submissions not searched" after the verdict.)
 
 ## First move
 One action, its cost, and the result that means stop or pivot.
 
 ## [Plan name]  (one section per plan)
 Blockers: two or three sentences each: what is wrong, why a reviewer cares, what exactly to do.
+What is still new (when Step 1 has per-part rows): one line per part, answered, partly or open, and by which paper.
 Major and minor: one line each.
 
 ## Evidence
 | ID | Plan | Level | Finding (short) | Reviewer criterion | Source (link, table or line; basis tag) | What clears it |
 
 ## How this check ran
-Session independence and any [MEMORY] facts (G1), material read (G2), inputs recorded as gaps (G3), milestone, steps not fully run and why, criteria used (venue form, link, date), and the count of findings per level and how many rest on [INFER].
+Session independence and any [MEMORY] facts (G1), material read (G2), inputs recorded as gaps (G3), milestone, steps not fully run and why, submission pools searched and how, the queries used as one list so a later check can rerun them exactly, criteria used (venue form, link, date), and the count of findings per level and how many rest on [INFER].
 ```
 
 The full report adds, after Evidence: "If I were Reviewer 2" (one paragraph built only from the findings, no new issues); the working tables (Step 0 map; Step 1 papers, queries, dropped candidates; Step 2 confounds; Step 3 claims and budget; Step 4 reference table; Step 5 limitations sentences; Step 6 narrowest titles); every source opened with its access date; and the Step 7 page.
